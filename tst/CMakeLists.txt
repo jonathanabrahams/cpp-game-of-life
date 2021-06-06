@@ -1,4 +1,4 @@
-find_package(GTest REQUIRED)
+find_package(GTest)
 if(NOT GTEST_LIBRARY)
     include(FetchContent)
     FetchContent_Declare(
