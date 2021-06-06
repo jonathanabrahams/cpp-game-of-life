@@ -1,4 +1,4 @@
-find_package(GTest REQUIRED)
+# find_package(GTest REQUIRED)
 
 include(ExternalProject)
 ExternalProject_Add(googletest
