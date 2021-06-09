@@ -22,9 +22,11 @@ jobs:
           command: cmake --build ./build
       - persist_to_workspace:
           root: .
-          paths: build
+          paths: 
+            - build
   test:
     executor: exectr_cmake
+    steps:
       - attach_workspace:
           at: .
       - run:
