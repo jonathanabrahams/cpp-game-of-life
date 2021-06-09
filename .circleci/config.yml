@@ -1,26 +1,43 @@
 version: 2.1
+executors:
+  exectr_cmake:
+    build:
+      docker:
+        - image: $GITHUB_CMAKE_IMAGE
+          auth:
+            username: $GITHUB_USERNAME
+            password: $GITHUB_TOKEN
+      resource_class: small
+
 jobs:
   build:
-    docker:
-      - image: ghcr.io/jonathanabrahams/alpine-cmake:1.0.0
-        auth:
-          username: jonathanabrahams
-          password: $GITHUB_TOKEN
+    executor: exectr_cmake
     steps:
       - checkout
       - run:
           name: Build CMAKE
           command: cmake -Bbuild .
       - run:
-          name: List all
-          command: ls -la ./build
-      - run:
           name: Build CXX
           command: cmake --build ./build
+      - persist_to_workspace:
+          root: .
+          paths: build
+  test:
+    executor: exectr_cmake
+      - attach_workspace:
+          at: .
       - run:
-          name: List SRC
-          command: ls -la ./build/src
+          name: Execute Tests
+          command: |
+            cd build/tst
+            ./GameOfLife_tst --gtest_output=XML
+      - store_test_results:
+          path: build
 workflows:
-  build:
+  build-and-test:
     jobs:
       - build
+      - test:
+          requires:
+              - build
