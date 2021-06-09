@@ -1,13 +1,12 @@
 version: 2.1
 executors:
   exectr_cmake:
-    build:
-      docker:
-        - image: $GITHUB_CMAKE_IMAGE
-          auth:
-            username: $GITHUB_USERNAME
-            password: $GITHUB_TOKEN
-      resource_class: small
+    docker:
+      - image: $GITHUB_CMAKE_IMAGE
+        auth:
+          username: $GITHUB_USERNAME
+          password: $GITHUB_TOKEN
+    resource_class: small
 
 jobs:
   build:
