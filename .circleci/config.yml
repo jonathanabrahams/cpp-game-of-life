@@ -4,8 +4,29 @@ version: 2.1
 orbs:
   # Declare a dependency on the welcome-orb
   welcome: circleci/welcome-orb@0.4.1
+  cmake: sensu/cmake@1.0.0
 # Orchestrate or schedule a set of jobs
 workflows:
+  build:
+    docker:
+      - image: ghcr.io/jonathanabrahams/alpine-cmake:1.0.0
+        auth:
+          username: jonathanabrahams
+          password: $GITHUB_TOKEN
+    steps:
+      - checkout
+      - run:
+          name: Build CMAKE
+          command: cmake -Bbuild .
+      - run:
+          name: List all
+          command: ls -la ./build
+      - run:
+          name: Build CXX
+          command: cmake --build ./build
+      - run:
+          name: List SRC
+          command: ls -la ./build/src
   # Name the workflow "welcome"
   welcome:
     # Run the welcome/run job in its own container
