@@ -32,7 +32,7 @@ jobs:
           name: Execute Tests
           command: |
             cd build/tst
-            ./GameOfLife_tst --gtest_output=XML
+            ./GameOfLife_tst --gtest_output=xml
       - store_test_results:
           path: build
 workflows:
