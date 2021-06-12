@@ -12,7 +12,10 @@ else()
 endif()
 
 set(BINARY ${CMAKE_PROJECT_NAME}_tst)
-set(SOURCES main_test.cpp)
+file(GLOB SOURCES 
+    *.test.cpp 
+    ${CMAKE_SOURCE_DIR}/lib/*.test.cpp
+)
 
 add_executable(${BINARY} ${SOURCES})
 target_link_libraries(${BINARY} PUBLIC ${GTEST_NS} gtest_main)
@@ -20,3 +23,4 @@ target_link_libraries(${BINARY} PUBLIC ${GTEST_NS} gtest_main)
 enable_testing()
 include(GoogleTest)
 gtest_discover_tests(${BINARY})
+
