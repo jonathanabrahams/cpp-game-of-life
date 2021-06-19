@@ -13,8 +13,8 @@ endif()
 
 set(BINARY ${CMAKE_PROJECT_NAME}_tst)
 file(GLOB SOURCES 
-    *.test.cpp 
-    ${CMAKE_SOURCE_DIR}/lib/*.test.cpp
+    ${CMAKE_SOURCE_DIR}/src/*.test.cpp 
+    ${CMAKE_SOURCE_DIR}/lib/GOL/*.test.cpp
 )
 
 add_executable(${BINARY} ${SOURCES})
