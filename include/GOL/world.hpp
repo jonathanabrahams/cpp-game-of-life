@@ -1,17 +1,11 @@
-#ifndef __WORLD_HPP__
-#define __WORLD_HPP__
-#include <vector>
+#ifndef __GOL_WORLD_HPP__
+#define __GOL_WORLD_HPP__
 #include "cell.hpp"
-
+#include <vector>
 namespace GOL
 {
     class World
     {
-    private:
-        std::vector<Cell> world_map = {};
-
-    public:
-        World();
     };
 
 }

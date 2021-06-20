@@ -1,6 +1,9 @@
 #include <gtest/gtest.h>
+#include "world.hpp"
 
-TEST(World, Lib)
+using namespace GOL;
+
+TEST(World, ToCell)
 {
-    EXPECT_EQ(1, 1);
+    EXPECT_TRUE(true);
 }

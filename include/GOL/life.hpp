@@ -1,20 +1,22 @@
-#ifndef __LIFE_HPP__
-#define __LIFE_HPP__
+#ifndef __GOL_LIFE_HPP__
+#define __GOL_LIFE_HPP__
 namespace GOL
 {
-
-    enum LifeSymbol : unsigned char
-    {
-        Alive = '1',
-        Dead = '0'
-    };
+    class Cell;
     class Life
     {
-    private:
-        LifeSymbol symbol;
-
     public:
-        Life(LifeSymbol);
+        static Cell aliveCell();
+        static Cell deadCell();
+        static Cell unknownCell();
+        static Cell toCell(unsigned char);
+
+    private:
+        enum _mapper
+        {
+            Alive = '+',
+            Dead = '-'
+        };
     };
 }
 #endif

@@ -1,22 +1,23 @@
-#ifndef __CELL_HPP__
-#define __CELL_HPP__
-
+#ifndef __GOL_CELL_HPP__
+#define __GOL_CELL_HPP__
 namespace GOL
 {
-
     enum CellState
     {
         Alive,
         Dead,
         Unknown
     };
-
     class Cell
     {
-        CellState state;
-
     public:
-        Cell(CellState);
+        explicit Cell(CellState);
+        bool alive() const;
+        bool dead() const;
+        bool unknown() const;
+
+    private:
+        CellState _state;
     };
 
 };
