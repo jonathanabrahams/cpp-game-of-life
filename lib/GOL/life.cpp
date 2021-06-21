@@ -17,16 +17,22 @@ namespace GOL
         return Cell(CellState::Unknown);
     };
 
-    Cell Life::toCell(unsigned char symbol)
+    Cell Life::toCell(SymbolLifeParser const &life)
     {
-        switch (symbol)
+        return life.parse();
+    };
+
+    Cell SymbolLifeParser::parse() const
+    {
+        _state sym = _mapper.find(_symbol) == _mapper.end() ? Unknown : _mapper.at(_symbol);
+        switch (sym)
         {
         case Alive:
-            return aliveCell();
+            return Life::aliveCell();
         case Dead:
-            return deadCell();
+            return Life::deadCell();
         default:
-            return unknownCell();
+            return Life::unknownCell();
         }
     };
 }

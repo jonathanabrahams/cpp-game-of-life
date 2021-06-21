@@ -43,18 +43,18 @@ TEST(Life, PushPopLife)
 
 TEST(Life, SymbolToAliveCell)
 {
-    Cell alive = Life::toCell('+');
+    Cell alive = Life::toCell(SymbolLifeParser('+'));
     EXPECT_TRUE(alive.alive());
 }
 
 TEST(Life, SymbolToDeadCell)
 {
-    Cell dead = Life::toCell('-');
+    Cell dead = Life::toCell(SymbolLifeParser('-'));
     EXPECT_FALSE(dead.alive());
 }
 
 TEST(Life, SymbolToUnknowCell)
 {
-    Cell unknown = Life::toCell('?');
+    Cell unknown = Life::toCell(SymbolLifeParser('?'));
     EXPECT_TRUE(unknown.unknown());
 }
