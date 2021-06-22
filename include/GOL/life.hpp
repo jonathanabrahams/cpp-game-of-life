@@ -1,42 +1,31 @@
 #ifndef __GOL_LIFE_HPP__
 #define __GOL_LIFE_HPP__
-#include <map>
-
 namespace GOL
 {
     class Cell;
-    class SymbolLifeParser;
     class Life
     {
     public:
         static Cell aliveCell();
         static Cell deadCell();
         static Cell unknownCell();
-        static Cell toCell(SymbolLifeParser const &);
     };
 
+    template <class T>
     class SymbolLifeParser
     {
     public:
-        SymbolLifeParser(unsigned char s, unsigned char a = '+', unsigned char d = '-')
-        {
-            _symbol = s;
-            _mapper[a] = Alive;
-            _mapper[d] = Dead;
-        };
-
+        bool alive() const;
+        bool dead() const;
         Cell parse() const;
+        SymbolLifeParser<T> &alive(T);
+        SymbolLifeParser<T> &dead(T);
+        SymbolLifeParser<T> &symbol(T);
 
     private:
-        unsigned char _symbol;
-        enum _state
-        {
-            Alive,
-            Dead,
-            Unknown
-        };
-        std::map<unsigned char, _state> _mapper;
+        T _symbol;
+        T _alive;
+        T _dead;
     };
-
 }
 #endif

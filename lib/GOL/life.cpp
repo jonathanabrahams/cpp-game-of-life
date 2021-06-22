@@ -1,5 +1,6 @@
 #include "cell.hpp"
 #include "life.hpp"
+#include <cstdint>
 namespace GOL
 {
     Cell Life::aliveCell()
@@ -17,22 +18,53 @@ namespace GOL
         return Cell(CellState::Unknown);
     };
 
-    Cell Life::toCell(SymbolLifeParser const &life)
+    template <class T>
+    bool SymbolLifeParser<T>::alive() const
     {
-        return life.parse();
+        return _symbol == _alive;
+    }
+
+    template <class T>
+    bool SymbolLifeParser<T>::dead() const
+    {
+        return _symbol == _dead;
+    }
+
+    template <class T>
+    Cell SymbolLifeParser<T>::parse() const
+    {
+        if (alive())
+        {
+            return Life::aliveCell();
+        }
+        else if (dead())
+        {
+            return Life::deadCell();
+        }
+
+        return Life::unknownCell();
     };
 
-    Cell SymbolLifeParser::parse() const
+    template <class T>
+    SymbolLifeParser<T> &SymbolLifeParser<T>::alive(T a)
     {
-        _state sym = _mapper.find(_symbol) == _mapper.end() ? Unknown : _mapper.at(_symbol);
-        switch (sym)
-        {
-        case Alive:
-            return Life::aliveCell();
-        case Dead:
-            return Life::deadCell();
-        default:
-            return Life::unknownCell();
-        }
-    };
+        _alive = a;
+        return *this;
+    }
+
+    template <class T>
+    SymbolLifeParser<T> &SymbolLifeParser<T>::dead(T d)
+    {
+        _dead = d;
+        return *this;
+    }
+
+    template <class T>
+    SymbolLifeParser<T> &SymbolLifeParser<T>::symbol(T s)
+    {
+        _symbol = s;
+        return *this;
+    }
+    template class SymbolLifeParser<unsigned char>;
+    template class SymbolLifeParser<int8_t>;
 }
