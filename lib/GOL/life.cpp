@@ -66,5 +66,6 @@ namespace GOL
         return *this;
     }
     template class SymbolLifeParser<unsigned char>;
+    template class SymbolLifeParser<char>;
     template class SymbolLifeParser<int8_t>;
 }

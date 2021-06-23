@@ -5,5 +5,4 @@ namespace GOL
     bool Cell::alive() const { return _state == Alive; };
     bool Cell::dead() const { return _state == Dead; };
     bool Cell::unknown() const { return _state == Unknown; };
-    
 };
