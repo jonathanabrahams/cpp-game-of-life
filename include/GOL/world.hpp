@@ -10,11 +10,16 @@ namespace GOL
     public:
         World(std::istream &);
         std::vector<Cell> &world();
-        int rows();
+        std::vector<Cell> neighbors(std::vector<Cell>::iterator &);
+        unsigned int rows();
+        unsigned int cols();
 
     private:
         std::vector<Cell> _world;
-        int _rows = 0;
+        std::vector<Cell>::iterator _begin;
+        std::vector<Cell>::iterator _end;
+        unsigned int _rows = 0;
+        unsigned int _cols = 0;
     };
 
 }
