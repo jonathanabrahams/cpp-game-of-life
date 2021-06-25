@@ -9,10 +9,22 @@ namespace GOL
         parser.alive('+').dead('-');
 
         unsigned int cols = 0;
-        while (is.get(c))
+        do
         {
+            is.get(c);
+            // End-Of-Stream
+            if (is.eof())
+            {
+                //Set eof and Rest failbit
+                is.clear(std::ios_base::eofbit);
+                // Set failbit
+                if (cols != _cols)
+                {
+                    is.setstate(std::ios_base::failbit);
+                }
+            }
             // End-Of-Row and Reset Column
-            if (c == '\n')
+            else if (c == '\n')
             {
                 cols = 0;
             }
@@ -30,13 +42,16 @@ namespace GOL
                     _cols = cols;
                 }
                 _world.push_back(parser.symbol(c).parse());
+                // Unknown symbols should fail
+                if (_world.back().unknown())
+                {
+                    is.setstate(std::ios_base::failbit);
+                }
             }
-        }
+        } while (!is.eof() && !is.fail());
 
         if (is.eof())
         {
-            // reset failbit as side-effect of get()
-            is.clear(std::ios_base::eofbit);
             _begin = _world.begin();
             _end = _world.end();
         }
