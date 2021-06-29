@@ -28,7 +28,7 @@ TEST(World, WorldBuilder)
     EXPECT_EQ(w.rows(), 2);
     EXPECT_EQ(w.cols(), 4);
 
-    std::vector<Cell>::iterator it = w.world().begin();
+    auto it = w.begin();
 
     EXPECT_TRUE(it++->alive());
     EXPECT_TRUE(it++->dead());
@@ -40,5 +40,4 @@ TEST(World, WorldBuilder)
     EXPECT_TRUE(it++->dead());
     EXPECT_TRUE(it++->dead());
 
-    EXPECT_TRUE(it == w.world().end());
 }

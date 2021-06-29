@@ -1,4 +1,4 @@
-set(SOURCES GOL/cell.cpp GOL/life.cpp GOL/world.cpp)
+set(SOURCES GOL/cell.cpp GOL/life.cpp GOL/world.cpp GOL/rules.cpp)
 
 add_library(${CMAKE_PROJECT_NAME}_lib
     STATIC ${SOURCES}

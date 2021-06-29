@@ -1,5 +1,6 @@
 #include "life.hpp"
 #include "world.hpp"
+#include <cstdlib>
 namespace GOL
 {
     World::World(std::istream &is)
@@ -49,18 +50,7 @@ namespace GOL
                 }
             }
         } while (!is.eof() && !is.fail());
-
-        if (is.eof())
-        {
-            _begin = _world.begin();
-            _end = _world.end();
-        }
     };
-
-    std::vector<Cell> &World::world()
-    {
-        return _world;
-    }
 
     unsigned int World::rows()
     {
@@ -71,10 +61,25 @@ namespace GOL
         return _cols;
     }
 
-    std::vector<Cell> World::neighbors(std::vector<Cell>::iterator &it)
+    WorldMap World::neighbors(WorldMap::iterator it)
     {
-        std::cout << "B:" << std::distance(_begin, it) << " E:" << std::distance(it, _end) << std::endl;
-        std::cout << "R:" << _rows << " C:" << _cols << std::endl;
-        return std::vector<Cell>{};
-    }
+        Coordinate max(_cols, _rows);
+        Coordinate current(std::distance(begin(), it), max);
+
+        Coordinate n[8] = {
+            current.n_w(), // 0: Top-Left
+            current.n(),   // 1: Top
+            current.n_e(), // 2: Top-Right
+            current.w(),   // 3: Left
+            current.e(),   // 4: Right
+            current.s_w(), // 5: Bottom-Left
+            current.s(),   // 6: Bottom
+            current.s_e()  // 7: Bottom-Right
+        };
+        WorldMap _result;
+        for (int i = 0; i < 8; i++)
+            if (n[i].xy_in_range(max))
+                _result.push_back(_world.at(n[i].index(max)));
+        return _result;
+    };
 }
