@@ -43,17 +43,18 @@ namespace GOL
      * Count live neighbours
      */
     template <class T>
-    bool Rules<T>::live_neighbours(WorldMap n, bool (&rule)(T))
+    bool Rules<T>::live_neighbours(WorldMap n, SpecificationCallback<T> specification)
     {
-        unsigned alive = 0;
-        auto ptr = n.begin();
+        T alive = 0;
+        WorldMap::iterator ptr = n.begin();
 
         while (ptr != n.end())
             if (ptr++->alive())
                 alive++;
 
-        return rule(alive);
+        return specification(alive);
     };
+
     template class Rules<int>;
     template class Rules<unsigned int>;
     template class Specification<int>;
