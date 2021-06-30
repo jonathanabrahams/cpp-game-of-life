@@ -3,16 +3,16 @@
 #include "world.hpp"
 namespace GOL
 {
-    template<class T>
+    template <class T>
     using SpecificationCallback = bool (&)(T);
     template <class T>
     class Rules
     {
     public:
-        static bool dies_underpopulation(WorldMap::iterator, WorldMap);
-        static bool lives_next_generation(WorldMap::iterator, WorldMap);
-        static bool dies_overpopulated(WorldMap::iterator, WorldMap);
-        static bool lives_reproduced(WorldMap::iterator, WorldMap);
+        static bool dies_underpopulation(Cell, WorldMap);
+        static bool lives_next_generation(Cell, WorldMap);
+        static bool dies_overpopulated(Cell, WorldMap);
+        static bool lives_reproduced(Cell, WorldMap);
         static bool live_neighbours(WorldMap, SpecificationCallback<T>);
     };
 

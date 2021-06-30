@@ -82,3 +82,58 @@ TEST(Rules, FourLiveAndDeadNeighbours)
     EXPECT_FALSE(Rules<int>::live_neighbours(n, Specification<int>::fewer_than_two));
     EXPECT_TRUE(Rules<int>::live_neighbours(n, Specification<int>::more_than_three));
 }
+
+TEST(Rules, DiesDueToOverpopulation)
+{
+    std::vector<WorldMap> n = {
+        {Life::aliveCell(), Life::aliveCell(), Life::deadCell(), Life::aliveCell(), Life::aliveCell(), Life::deadCell()},
+        {Life::aliveCell(), Life::aliveCell(), Life::aliveCell(), Life::aliveCell(), Life::aliveCell()},
+    };
+    Cell alive = Life::aliveCell();
+    auto it = n.begin();
+    do
+    {
+        EXPECT_TRUE(Rules<int>::dies_overpopulated(alive, *it));
+    } while ((++it != n.end()));
+}
+
+TEST(Rules, DiesDueToUnderpopulation)
+{
+    std::vector<WorldMap> n = {
+        {Life::deadCell(), Life::aliveCell(), Life::deadCell()},
+        {},
+    };
+    Cell alive = Life::aliveCell();
+    auto it = n.begin();
+    do
+    {
+        EXPECT_TRUE(Rules<int>::dies_underpopulation(alive, *it));
+    } while ((++it != n.end()));
+}
+
+TEST(Rules, LiveDueToNextGeneration)
+{
+    std::vector<WorldMap> n = {
+        {Life::aliveCell(), Life::aliveCell(), Life::deadCell()},
+        {Life::aliveCell(), Life::aliveCell(), Life::aliveCell()},
+    };
+    Cell alive = Life::aliveCell();
+    auto it = n.begin();
+    do
+    {
+        EXPECT_TRUE(Rules<int>::lives_next_generation(alive, *it));
+    } while ((++it != n.end()));
+}
+
+TEST(Rules, LiveDueToReproduction)
+{
+    std::vector<WorldMap> n = {
+        {Life::aliveCell(), Life::aliveCell(), Life::aliveCell()},
+    };
+    Cell dead = Life::deadCell();
+    auto it = n.begin();
+    do
+    {
+        EXPECT_TRUE(Rules<int>::lives_reproduced(dead, *it));
+    } while ((++it != n.end()));
+}
