@@ -65,7 +65,20 @@ namespace GOL
         _symbol = s;
         return *this;
     }
+
+    template <class T>
+    T ParseLifeSymbol<T>::parse(Cell c)
+    {
+        if (c.alive())
+            return _alive;
+        else if (c.dead())
+            return _dead;
+        else
+            return _unknown;
+    };
     template class SymbolLifeParser<unsigned char>;
     template class SymbolLifeParser<char>;
     template class SymbolLifeParser<int8_t>;
+    template class ParseLifeSymbol<unsigned char>;
+    template class ParseLifeSymbol<char>;
 }

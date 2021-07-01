@@ -95,3 +95,15 @@ TEST(Life, CustomIntSymbols)
     EXPECT_FALSE(dead_bool.alive());
     EXPECT_FALSE(dead_bool.unknown());
 }
+
+TEST(Life, ParseLifeSymbol)
+{
+    ParseLifeSymbol<unsigned char> custom('+', '-', '?');
+    Cell alive = Life::aliveCell();
+    Cell dead = Life::deadCell();
+    Cell unknown = Life::unknownCell();
+
+    EXPECT_EQ(custom.parse(alive), '+');
+    EXPECT_EQ(custom.parse(dead), '-');
+    EXPECT_EQ(custom.parse(unknown), '?');
+}

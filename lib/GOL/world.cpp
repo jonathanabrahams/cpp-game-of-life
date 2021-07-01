@@ -3,12 +3,9 @@
 #include <cstdlib>
 namespace GOL
 {
-    World::World(std::istream &is)
+    World::World(std::istream &is, SymbolLifeParser<unsigned char> &parser)
     {
         char c;
-        SymbolLifeParser<char> parser;
-        parser.alive('+').dead('-');
-
         unsigned int cols = 0;
         do
         {
@@ -55,11 +52,12 @@ namespace GOL
     unsigned int World::rows()
     {
         return _rows;
-    }
+    };
+
     unsigned int World::cols()
     {
         return _cols;
-    }
+    };
 
     WorldMap World::neighbors(WorldMap::iterator it)
     {
@@ -82,4 +80,37 @@ namespace GOL
                 _result.push_back(_world.at(n[i].index(max)));
         return _result;
     };
+
+    std::ostream &operator<<(std::ostream &os, World const &w)
+    {
+        auto current = w._world.begin();
+        auto end = w._world.end();
+        auto row = 0;
+        auto col = 0;
+        auto cols = w._cols;
+        auto rows = w._rows;
+        while (current != end)
+        {
+            if (cols == col)
+            {
+                col = 0;
+                row++;
+                os << std::endl;
+            };
+            os << w._parser->parse(*current);
+            col++;
+            current++;
+        }
+        return os;
+    };
+
+    ParseLifeSymbol<unsigned char> *World::parser()
+    {
+        return _parser;
+    };
+
+    void World::parser(ParseLifeSymbol<unsigned char> &p)
+    {
+        _parser = &p;
+    }
 }

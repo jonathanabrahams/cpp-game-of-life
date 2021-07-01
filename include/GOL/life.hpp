@@ -27,5 +27,18 @@ namespace GOL
         T _alive;
         T _dead;
     };
+
+    template <class T>
+    class ParseLifeSymbol
+    {
+    public:
+        ParseLifeSymbol<T>(T alive, T dead, T unknown) : _alive(alive), _dead(dead), _unknown(unknown){};
+        T parse(Cell);
+
+    private:
+        T _alive;
+        T _dead;
+        T _unknown;
+    };
 }
 #endif
