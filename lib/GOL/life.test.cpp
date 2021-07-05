@@ -43,7 +43,7 @@ TEST(Life, PushPopLife)
 
 TEST(Life, SymbolToAliveCell)
 {
-    Cell alive = SymbolLifeParser<unsigned char>().alive('+').symbol('+').parse();
+    Cell alive = SymbolLifeParser<unsigned char>('+', '-').symbol('+').parse();
     EXPECT_TRUE(alive.alive());
     EXPECT_FALSE(alive.dead());
     EXPECT_FALSE(alive.unknown());
@@ -51,7 +51,7 @@ TEST(Life, SymbolToAliveCell)
 
 TEST(Life, SymbolToDeadCell)
 {
-    Cell dead = SymbolLifeParser<unsigned char>().symbol('-').dead('-').parse();
+    Cell dead = SymbolLifeParser<unsigned char>('+', '-').symbol('-').parse();
     EXPECT_TRUE(dead.dead());
     EXPECT_FALSE(dead.alive());
     EXPECT_FALSE(dead.unknown());
@@ -59,7 +59,7 @@ TEST(Life, SymbolToDeadCell)
 
 TEST(Life, SymbolToUnknowCell)
 {
-    Cell unknown = SymbolLifeParser<unsigned char>().symbol('?').parse();
+    Cell unknown = SymbolLifeParser<unsigned char>('+', '-').symbol('?').parse();
     EXPECT_TRUE(unknown.unknown());
     EXPECT_FALSE(unknown.alive());
     EXPECT_FALSE(unknown.dead());
@@ -67,8 +67,7 @@ TEST(Life, SymbolToUnknowCell)
 
 TEST(Life, CustomIntSymbols)
 {
-    SymbolLifeParser<int8_t> custom;
-    custom.alive(1).dead(0);
+    SymbolLifeParser<int8_t> custom(1, 0);
 
     Cell unknown = custom.symbol(10).parse();
     EXPECT_TRUE(unknown.unknown());

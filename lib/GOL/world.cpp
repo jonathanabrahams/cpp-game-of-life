@@ -59,11 +59,10 @@ namespace GOL
         return _cols;
     };
 
-    WorldMap World::neighbors(WorldMap::iterator it)
+    void World::neighbors(WorldMap::iterator it, WorldMap &_result)
     {
         Coordinate max(_cols, _rows);
         Coordinate current(std::distance(begin(), it), max);
-
         Coordinate n[8] = {
             current.n_w(), // 0: Top-Left
             current.n(),   // 1: Top
@@ -74,11 +73,13 @@ namespace GOL
             current.s(),   // 6: Bottom
             current.s_e()  // 7: Bottom-Right
         };
-        WorldMap _result;
         for (int i = 0; i < 8; i++)
+        {
             if (n[i].xy_in_range(max))
+            {
                 _result.push_back(_world.at(n[i].index(max)));
-        return _result;
+            }
+        }
     };
 
     std::ostream &operator<<(std::ostream &os, World const &w)

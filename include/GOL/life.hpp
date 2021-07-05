@@ -15,6 +15,7 @@ namespace GOL
     class SymbolLifeParser
     {
     public:
+        SymbolLifeParser<T>(T alive, T dead) : _alive(alive), _dead(dead){};
         bool alive() const;
         bool dead() const;
         Cell parse() const;

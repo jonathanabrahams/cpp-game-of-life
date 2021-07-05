@@ -40,7 +40,7 @@ namespace GOL
         World(std::istream &, SymbolLifeParser<unsigned char>&);
         WorldMap::iterator begin() { return _world.begin(); };
         WorldMap::iterator end() { return _world.end(); };
-        WorldMap neighbors(WorldMap::iterator);
+        void neighbors(WorldMap::iterator, WorldMap &);
         unsigned int rows();
         unsigned int cols();
         friend std::ostream &operator<<(std::ostream &, World const &);

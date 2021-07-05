@@ -8,8 +8,7 @@ using namespace GOL;
 TEST(World, EmptyWorldBuilder)
 {
     std::istringstream i("");
-    SymbolLifeParser<unsigned char> parser;
-    parser.alive('+').dead('-');
+    SymbolLifeParser<unsigned char> parser('+', '-');
     World w(i, parser);
 
     EXPECT_EQ(w.rows(), 0);
@@ -19,8 +18,7 @@ TEST(World, EmptyWorldBuilder)
 TEST(World, WorldBuilder)
 {
     std::istringstream i("+--+\n++--");
-    SymbolLifeParser<unsigned char> parser;
-    parser.alive('+').dead('-');
+    SymbolLifeParser<unsigned char> parser('+', '-');
     World w(i, parser);
 
     EXPECT_TRUE(i.eof());
